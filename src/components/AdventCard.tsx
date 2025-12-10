@@ -1,11 +1,26 @@
-import { useState } from "react";
-import { InlineMath } from "react-katex";
+import { useState, useEffect, useRef } from "react";
+import katex from "katex";
 import type { IntegrationQuestion } from "@/data/integrationQuestions";
 
 interface AdventCardProps {
   question: IntegrationQuestion;
   index: number;
 }
+
+const MathDisplay = ({ math }: { math: string }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      katex.render(math, containerRef.current, {
+        throwOnError: false,
+        displayMode: true,
+      });
+    }
+  }, [math]);
+
+  return <div ref={containerRef} className="math-display" />;
+};
 
 export const AdventCard = ({ question, index }: AdventCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -42,7 +57,7 @@ export const AdventCard = ({ question, index }: AdventCardProps) => {
             </span>
             
             <div className="math-container flex-1 flex items-center justify-center px-1">
-              <InlineMath math={question.integral} />
+              <MathDisplay math={question.integral} />
             </div>
 
             {!showAnswer ? (
@@ -55,7 +70,7 @@ export const AdventCard = ({ question, index }: AdventCardProps) => {
             ) : (
               <div className="flex flex-col items-center gap-2 pb-1">
                 <div className="math-container animate-fade-in">
-                  <InlineMath math={`= ${question.answer}`} />
+                  <MathDisplay math={`= ${question.answer}`} />
                 </div>
                 <button
                   onClick={handleShowAnswer}
