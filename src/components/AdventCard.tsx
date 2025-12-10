@@ -36,7 +36,7 @@ export const AdventCard = ({ question, index }: AdventCardProps) => {
 
         {/* Back of card */}
         <div className="advent-card-back">
-          <div className="flex flex-col items-center justify-center h-full w-full gap-3">
+          <div className="flex flex-col items-center justify-center h-full w-full gap-2">
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Day {question.day}
             </span>
@@ -45,16 +45,24 @@ export const AdventCard = ({ question, index }: AdventCardProps) => {
               <InlineMath math={question.integral} />
             </div>
 
-            <button
-              onClick={handleShowAnswer}
-              className="text-xs px-3 py-1.5 rounded-md bg-primary/10 text-primary hover:bg-primary/20 transition-colors font-medium"
-            >
-              {showAnswer ? "Hide Answer" : "Show Answer"}
-            </button>
-
-            {showAnswer && (
-              <div className="math-container animate-fade-in pb-2">
-                <InlineMath math={`= ${question.answer}`} />
+            {!showAnswer ? (
+              <button
+                onClick={handleShowAnswer}
+                className="text-xs px-3 py-1.5 rounded-md bg-primary/10 text-primary hover:bg-primary/20 transition-colors font-medium"
+              >
+                Show Answer
+              </button>
+            ) : (
+              <div className="flex flex-col items-center gap-2 pb-1">
+                <div className="math-container animate-fade-in">
+                  <InlineMath math={`= ${question.answer}`} />
+                </div>
+                <button
+                  onClick={handleShowAnswer}
+                  className="text-xs px-3 py-1.5 rounded-md bg-muted text-muted-foreground hover:bg-muted/80 transition-colors font-medium"
+                >
+                  Hide
+                </button>
               </div>
             )}
           </div>
