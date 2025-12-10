@@ -188,11 +188,13 @@
   .math-container,
   .math-display {
     @apply text-center;
+    color: hsl(var(--card-back));
   }
 
   .math-container .katex,
   .math-display .katex {
-    font-size: 1.1rem;
+    font-size: clamp(0.75rem, 2.5vw, 1.1rem);
+    color: hsl(var(--card-back-foreground));
   }
 
   /* Hide MathML accessibility layer that shows raw LaTeX */
@@ -205,15 +207,31 @@
     display: none !important;
   }
 
+  /* Make any raw/unformatted text invisible by matching background */
+  .advent-card-back .math-container,
+  .advent-card-back .math-display {
+    color: hsl(var(--card-back));
+  }
+
+  .advent-card-back .katex {
+    color: hsl(var(--card-back-foreground)) !important;
+  }
+
+  .advent-card-back .katex-html {
+    color: hsl(var(--card-back-foreground)) !important;
+  }
+
   @media (min-width: 640px) {
-    .math-container .katex {
-      font-size: 1.3rem;
+    .math-container .katex,
+    .math-display .katex {
+      font-size: clamp(0.9rem, 2vw, 1.2rem);
     }
   }
 
   @media (min-width: 1024px) {
-    .math-container .katex {
-      font-size: 1.4rem;
+    .math-container .katex,
+    .math-display .katex {
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
     }
   }
 
