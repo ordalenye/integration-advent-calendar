@@ -185,12 +185,24 @@
     }
   }
 
-  .math-container {
+  .math-container,
+  .math-display {
     @apply text-center;
   }
 
-  .math-container .katex {
+  .math-container .katex,
+  .math-display .katex {
     font-size: 1.1rem;
+  }
+
+  /* Hide MathML accessibility layer that shows raw LaTeX */
+  .katex-mathml {
+    display: none !important;
+  }
+
+  /* Hide any annotation elements */
+  .katex annotation {
+    display: none !important;
   }
 
   @media (min-width: 640px) {
