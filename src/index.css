@@ -185,40 +185,37 @@
     }
   }
 
+
+  /* Hide ALL KaTeX accessibility/source elements */
+  .katex-mathml,
+  .katex annotation,
+  .katex semantics,
+  .katex math {
+    display: none !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+  }
+
+  /* Only show the rendered HTML output */
+  .katex-html {
+    display: inline-block !important;
+    color: hsl(var(--card-back-foreground)) !important;
+  }
+
+  /* Hide any text nodes directly in math containers */
   .math-container,
   .math-display {
-    @apply text-center;
-    color: hsl(var(--card-back));
+    font-size: 0;
+    color: transparent;
+    text-align: center;
   }
 
   .math-container .katex,
   .math-display .katex {
     font-size: clamp(0.75rem, 2.5vw, 1.1rem);
-    color: hsl(var(--card-back-foreground));
-  }
-
-  /* Hide MathML accessibility layer that shows raw LaTeX */
-  .katex-mathml {
-    display: none !important;
-  }
-
-  /* Hide any annotation elements */
-  .katex annotation {
-    display: none !important;
-  }
-
-  /* Make any raw/unformatted text invisible by matching background */
-  .advent-card-back .math-container,
-  .advent-card-back .math-display {
-    color: hsl(var(--card-back));
-  }
-
-  .advent-card-back .katex {
-    color: hsl(var(--card-back-foreground)) !important;
-  }
-
-  .advent-card-back .katex-html {
-    color: hsl(var(--card-back-foreground)) !important;
   }
 
   @media (min-width: 640px) {
