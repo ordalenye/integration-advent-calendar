@@ -186,17 +186,19 @@
   }
 
 
-  /* Hide ALL KaTeX accessibility/source elements */
+  /* Hide KaTeX MathML accessibility layer */
   .katex-mathml {
     display: none !important;
   }
 
-  /* Style math containers */
+  /* Style math containers - hide raw text by making it match background */
   .math-container,
   .math-display {
     text-align: center;
+    color: hsl(var(--card-back));
   }
 
+  /* Show only the rendered KaTeX with proper foreground color */
   .math-container .katex,
   .math-display .katex {
     font-size: clamp(0.75rem, 2.5vw, 1.1rem);
