@@ -186,36 +186,110 @@
   }
 
 
-  /* Hide KaTeX MathML accessibility layer */
-  .katex-mathml {
-    display: none !important;
-  }
-
-  /* Style math containers - hide raw text by making it match background */
-  .math-container,
-  .math-display {
-    text-align: center;
-    color: hsl(var(--card-back));
-  }
-
-  /* Show only the rendered KaTeX with proper foreground color */
-  .math-container .katex,
-  .math-display .katex {
-    font-size: clamp(0.75rem, 2.5vw, 1.1rem);
+  /* Custom Math Renderer Styles */
+  .math-render {
+    display: inline-flex;
+    align-items: center;
+    font-family: "Times New Roman", serif;
+    font-size: clamp(0.9rem, 3vw, 1.3rem);
     color: hsl(var(--card-back-foreground));
   }
 
+  .math-var, .math-e, .math-const {
+    font-style: italic;
+  }
+
+  .integral-symbol {
+    font-size: 1.5em;
+    font-style: normal;
+    line-height: 1;
+  }
+
+  .integral-with-limits {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .integral-limits {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.7em;
+    line-height: 1;
+  }
+
+  .integral-limits .integral-symbol {
+    font-size: 2.2em;
+  }
+
+  .integral-upper, .integral-lower {
+    font-size: 0.85em;
+  }
+
+  .fraction {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 0.15em;
+  }
+
+  .fraction-num, .fraction-denom {
+    padding: 0 0.2em;
+    line-height: 1.2;
+  }
+
+  .fraction-line {
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    margin: 1px 0;
+  }
+
+  .sqrt {
+    display: inline-flex;
+    align-items: flex-start;
+  }
+
+  .sqrt-symbol {
+    font-size: 1.2em;
+    line-height: 1;
+  }
+
+  .sqrt-content {
+    border-top: 1px solid currentColor;
+    padding: 0 0.15em;
+  }
+
+  sup {
+    font-size: 0.7em;
+    vertical-align: super;
+    line-height: 1;
+  }
+
+  sub {
+    font-size: 0.7em;
+    vertical-align: sub;
+    line-height: 1;
+  }
+
+  .paren {
+    font-size: 1em;
+  }
+
+  .math-container {
+    text-align: center;
+  }
+
   @media (min-width: 640px) {
-    .math-container .katex,
-    .math-display .katex {
-      font-size: clamp(0.9rem, 2vw, 1.2rem);
+    .math-render {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
     }
   }
 
   @media (min-width: 1024px) {
-    .math-container .katex,
-    .math-display .katex {
-      font-size: clamp(1rem, 1.5vw, 1.3rem);
+    .math-render {
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
     }
   }
 
