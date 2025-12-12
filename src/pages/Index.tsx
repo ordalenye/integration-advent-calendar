@@ -1,14 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AdventCard } from "@/components/AdventCard";
 import { CalendarHeader } from "@/components/CalendarHeader";
 import { DifficultySelector } from "@/components/DifficultySelector";
 import { Snowflakes } from "@/components/Snowflakes";
 import { questionsByDifficulty, type Difficulty } from "@/data/integrationQuestions";
 
+const OPENED_CARDS_KEY = "advent-opened-cards";
+
 const Index = () => {
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
   const [unlockAll, setUnlockAll] = useState(false);
+  const [openedCards, setOpenedCards] = useState<Set<string>>(new Set());
   const questions = questionsByDifficulty[difficulty];
+
+  // Load opened cards from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem(OPENED_CARDS_KEY);
+    if (stored) {
+      setOpenedCards(new Set(JSON.parse(stored)));
+    }
+  }, []);
+
+  const markCardOpened = (difficulty: Difficulty, day: number) => {
+    const key = `${difficulty}-${day}`;
+    setOpenedCards(prev => {
+      const newSet = new Set(prev);
+      newSet.add(key);
+      localStorage.setItem(OPENED_CARDS_KEY, JSON.stringify([...newSet]));
+      return newSet;
+    });
+  };
 
   // Get current day of December (1-24)
   const today = new Date();
@@ -17,6 +38,10 @@ const Index = () => {
   const isCardLocked = (day: number) => {
     if (unlockAll) return false;
     return day > currentDay;
+  };
+
+  const isCardOpened = (day: number) => {
+    return openedCards.has(`${difficulty}-${day}`);
   };
 
   return (
@@ -39,6 +64,8 @@ const Index = () => {
                 question={question} 
                 index={index} 
                 locked={isCardLocked(question.day)}
+                opened={isCardOpened(question.day)}
+                onOpen={() => markCardOpened(difficulty, question.day)}
               />
             </div>
           ))}
