@@ -135,6 +135,24 @@
     border: 2px solid hsl(var(--gold) / 0.4) !important;
   }
 
+  .advent-card.locked {
+    cursor: not-allowed;
+  }
+
+  .advent-card.locked .advent-card-front {
+    background: linear-gradient(145deg, hsl(222 30% 20%), hsl(222 35% 15%));
+    border-color: hsl(var(--border));
+    opacity: 0.7;
+  }
+
+  .advent-card.locked:hover .advent-card-front {
+    transform: none;
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -2px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
   .day-number {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 2.5rem;

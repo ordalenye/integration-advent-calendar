@@ -7,7 +7,17 @@ import { questionsByDifficulty, type Difficulty } from "@/data/integrationQuesti
 
 const Index = () => {
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
+  const [unlockAll, setUnlockAll] = useState(false);
   const questions = questionsByDifficulty[difficulty];
+
+  // Get current day of December (1-24)
+  const today = new Date();
+  const currentDay = today.getMonth() === 11 ? today.getDate() : 0; // Only unlock if December
+
+  const isCardLocked = (day: number) => {
+    if (unlockAll) return false;
+    return day > currentDay;
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -25,7 +35,11 @@ const Index = () => {
               className="opacity-0 animate-fade-in"
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              <AdventCard question={question} index={index} />
+              <AdventCard 
+                question={question} 
+                index={index} 
+                locked={isCardLocked(question.day)}
+              />
             </div>
           ))}
         </main>
@@ -37,6 +51,14 @@ const Index = () => {
             {difficulty === "medium" && "Substitution and integration by parts"}
             {difficulty === "hard" && "Complex multi-step problems for exam preparation"}
           </p>
+          
+          {/* Debug button */}
+          <button
+            onClick={() => setUnlockAll(!unlockAll)}
+            className="mt-6 text-xs px-3 py-1.5 rounded-md bg-muted/50 text-muted-foreground hover:bg-muted transition-colors"
+          >
+            {unlockAll ? "Lock Future Days" : "Unlock All Days (Debug)"}
+          </button>
         </footer>
       </div>
     </div>
