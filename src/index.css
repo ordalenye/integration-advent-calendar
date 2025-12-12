@@ -1,9 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import 'katex/dist/katex.min.css';
-
 @layer base {
   :root {
     /* Winter night theme - festive but sophisticated */
@@ -102,36 +99,17 @@
 
 @layer components {
   .advent-card {
-    perspective: 1000px;
-  }
-
-  .advent-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d;
-  }
-
-  .advent-card.flipped .advent-card-inner {
-    transform: rotateY(180deg);
-  }
-
-  .advent-card-front,
-  .advent-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: var(--radius);
+    cursor: pointer;
   }
 
   .advent-card-front {
+    width: 100%;
+    height: 100%;
     background: var(--gradient-card);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    border-radius: var(--radius);
     box-shadow: 
       0 4px 6px -1px rgba(0, 0, 0, 0.3),
       0 2px 4px -2px rgba(0, 0, 0, 0.2),
@@ -140,7 +118,7 @@
     transition: all 0.3s ease;
   }
 
-  .advent-card:not(.flipped):hover .advent-card-front {
+  .advent-card:hover .advent-card-front {
     background: linear-gradient(145deg, hsl(0 70% 46%), hsl(0 65% 36%));
     box-shadow: 
       0 8px 12px -2px rgba(0, 0, 0, 0.4),
@@ -151,20 +129,10 @@
     transform: translateY(-2px);
   }
 
-  .advent-card-back {
-    background: hsl(var(--card-back));
+  .advent-card-modal {
+    background: hsl(var(--card-back)) !important;
     color: hsl(var(--card-back-foreground));
-    transform: rotateY(180deg);
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.3),
-      0 2px 4px -2px rgba(0, 0, 0, 0.2);
-    border: 2px solid hsl(var(--gold) / 0.4);
-    overflow: hidden;
+    border: 2px solid hsl(var(--gold) / 0.4) !important;
   }
 
   .day-number {
