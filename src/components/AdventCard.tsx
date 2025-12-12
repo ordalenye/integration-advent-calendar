@@ -22,6 +22,9 @@ export const AdventCard = ({ question, index, locked = false, opened = false, on
 
   const handleShowAnswer = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (!showAnswer) {
+      onOpen?.();
+    }
     setShowAnswer(!showAnswer);
   };
 
@@ -33,7 +36,6 @@ export const AdventCard = ({ question, index, locked = false, opened = false, on
   const handleClick = () => {
     if (!locked) {
       setIsOpen(true);
-      onOpen?.();
     }
   };
 
