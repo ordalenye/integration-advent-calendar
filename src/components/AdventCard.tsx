@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MathRenderer } from "./MathRenderer";
+import { Lock } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -10,9 +11,10 @@ import type { IntegrationQuestion } from "@/data/integrationQuestions";
 interface AdventCardProps {
   question: IntegrationQuestion;
   index: number;
+  locked?: boolean;
 }
 
-export const AdventCard = ({ question, index }: AdventCardProps) => {
+export const AdventCard = ({ question, index, locked = false }: AdventCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
 
@@ -26,15 +28,25 @@ export const AdventCard = ({ question, index }: AdventCardProps) => {
     setShowAnswer(false);
   };
 
+  const handleClick = () => {
+    if (!locked) {
+      setIsOpen(true);
+    }
+  };
+
   return (
     <>
       <div
-        className="advent-card aspect-[4/5] cursor-pointer"
-        onClick={() => setIsOpen(true)}
+        className={`advent-card aspect-[4/5] ${locked ? "locked" : ""}`}
+        onClick={handleClick}
         style={{ animationDelay: `${index * 50}ms` }}
       >
         <div className="advent-card-front">
-          <span className="day-number">{question.day}</span>
+          {locked ? (
+            <Lock className="w-8 h-8 text-gold/50" />
+          ) : (
+            <span className="day-number">{question.day}</span>
+          )}
         </div>
       </div>
 
